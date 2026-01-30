@@ -8,7 +8,6 @@ let usedNumbers = [];
 const numbersContainer = document.getElementById('numbers');
 const answerInput = document.getElementById('answer');
 const resultDisplay = document.getElementById('result');
-const checkButton = document.getElementById('check');
 const nextButton = document.getElementById('next');
 const keypad = document.getElementById('keypad');
 
@@ -113,6 +112,10 @@ function setupEvents() {
             answerInput.value += value;
             updateNumberDisplay();
             updateKeypadState();
+            // 4つの数字を使ったら自動判定
+            if (usedNumbers.length === 4) {
+                setTimeout(checkAnswer, 100);
+            }
         } else if (type === 'operator') {
             answerInput.value += value;
         } else if (type === 'action') {
@@ -126,9 +129,6 @@ function setupEvents() {
             }
         }
     });
-
-    // 判定ボタン
-    checkButton.addEventListener('click', checkAnswer);
 
     // 次へボタン
     nextButton.addEventListener('click', () => {
