@@ -222,5 +222,69 @@ function checkAnswer() {
     }
 }
 
+// 答えを探す（総当たり）
+function findSolution() {
+    const ops = ['+', '-', '*', '/'];
+    const opSymbols = ['+', '−', '×', '÷'];
+
+    // 4つの数字の全順列を生成
+    function permutations(arr) {
+        if (arr.length <= 1) return [arr];
+        const result = [];
+        for (let i = 0; i < arr.length; i++) {
+            const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
+            for (const perm of permutations(rest)) {
+                result.push([arr[i], ...perm]);
+            }
+        }
+        return result;
+    }
+
+    const perms = permutations([0, 1, 2, 3]); // インデックスの順列
+
+    // 全組み合わせを試す
+    for (const perm of perms) {
+        const nums = perm.map(i => currentNumbers[i]);
+
+        for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 4; j++) {
+                for (let k = 0; k < 4; k++) {
+                    // 式を構築
+                    const expr = `${nums[0]}${ops[i]}${nums[1]}${ops[j]}${nums[2]}${ops[k]}${nums[3]}`;
+
+                    try {
+                        const result = eval(expr);
+                        if (Math.abs(result - 10) < 0.0001) {
+                            // 表示用に演算子を変換
+                            const displayExpr = `${nums[0]}${opSymbols[i]}${nums[1]}${opSymbols[j]}${nums[2]}${opSymbols[k]}${nums[3]}`;
+                            return displayExpr;
+                        }
+                    } catch (e) {
+                        // 計算エラーは無視
+                    }
+                }
+            }
+        }
+    }
+
+    return null; // 解が見つからない
+}
+
+// 答えを表示
+function showSolution() {
+    const solution = findSolution();
+
+    if (solution) {
+        resultDisplay.textContent = `こたえ: ${solution}`;
+        resultDisplay.className = 'result correct';
+    } else {
+        resultDisplay.textContent = 'この数字では10が作れません 😢';
+        resultDisplay.className = 'result incorrect';
+    }
+}
+
 // 起動
 init();
+
+// 「こたえ」ボタンのイベント設定
+document.getElementById('hint').addEventListener('click', showSolution);
