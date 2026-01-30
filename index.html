@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>10を作れ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 4つの数字 -->
+        <div class="numbers" id="numbers">
+            <span class="number">6</span>
+            <span class="number">7</span>
+            <span class="number">1</span>
+            <span class="number">2</span>
+        </div>
+
+        <!-- 入力エリア -->
+        <div class="input-area">
+            <input type="text" id="answer" placeholder="式を入力" autocomplete="off" inputmode="none">
+        </div>
+
+        <!-- 結果表示 -->
+        <div class="result" id="result"></div>
+
+        <!-- ボタンエリア -->
+        <div class="buttons">
+            <button id="check">判定</button>
+            <button id="next">次へ</button>
+        </div>
+
+        <!-- 電卓風キーパッド -->
+        <div class="keypad" id="keypad">
+            <!-- 動的に生成 -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
