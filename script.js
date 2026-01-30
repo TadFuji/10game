@@ -38,7 +38,7 @@ function displayNumbers() {
     numbersContainer.innerHTML = currentNumbers
         .map((num, index) => `<span class="number" data-index="${index}">${num}</span>`)
         .join('');
-    
+
     // 使用済みマーキング更新
     updateNumberDisplay();
 }
@@ -67,8 +67,6 @@ function createKeypad() {
         { label: '−', type: 'operator', value: '-' },
         { label: '×', type: 'operator', value: '*' },
         { label: '÷', type: 'operator', value: '/' },
-        { label: '(', type: 'operator' },
-        { label: ')', type: 'operator' },
         { label: '←', type: 'action', action: 'backspace' },
         { label: 'C', type: 'action', action: 'clear' },
     ];
@@ -88,7 +86,7 @@ function updateKeypadState() {
             const index = parseInt(key.dataset.index);
             key.textContent = currentNumbers[index];
             key.dataset.value = currentNumbers[index];
-            
+
             if (usedNumbers.includes(index)) {
                 key.classList.add('disabled');
             } else {
@@ -158,7 +156,7 @@ function handleBackspace() {
     if (currentValue.length === 0) return;
 
     const lastChar = currentValue.slice(-1);
-    
+
     // 削除する文字が数字かチェック
     if (/\d/.test(lastChar)) {
         // 使用済みリストから最後に使った該当数字を復元
@@ -180,7 +178,7 @@ function handleBackspace() {
 // 答え判定
 function checkAnswer() {
     const expression = answerInput.value;
-    
+
     if (!expression) {
         resultDisplay.textContent = '式を入力してください';
         resultDisplay.className = 'result incorrect';
@@ -198,7 +196,7 @@ function checkAnswer() {
     // 使用された数字が正しいかチェック
     const sortedInput = inputNumbers.map(Number).sort((a, b) => a - b);
     const sortedCurrent = [...currentNumbers].sort((a, b) => a - b);
-    
+
     if (JSON.stringify(sortedInput) !== JSON.stringify(sortedCurrent)) {
         resultDisplay.textContent = '与えられた数字を使ってください';
         resultDisplay.className = 'result incorrect';
@@ -210,7 +208,7 @@ function checkAnswer() {
         // 安全な評価（数字と演算子のみ許可）
         const safeExpression = expression.replace(/[^0-9+\-*/().]/g, '');
         const result = Function('"use strict"; return (' + safeExpression + ')')();
-        
+
         if (Math.abs(result - 10) < 0.0001) {
             resultDisplay.textContent = '正解！ 🎉';
             resultDisplay.className = 'result correct';
