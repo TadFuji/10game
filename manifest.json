@@ -1,0 +1,29 @@
+{
+    "name": "10を作れ",
+    "short_name": "Make10",
+    "description": "4つの数字と四則演算で10を作る脳トレパズルゲーム",
+    "start_url": "/10game/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "lang": "ja",
+    "categories": [
+        "games",
+        "education"
+    ]
+}

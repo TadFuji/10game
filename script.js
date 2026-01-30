@@ -1,5 +1,12 @@
 // 10を作るゲーム - メインロジック
 
+// Service Worker登録（PWA対応）
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker registered'))
+        .catch((err) => console.log('Service Worker registration failed:', err));
+}
+
 // ゲーム状態
 let currentNumbers = [];
 let usedNumbers = [];
